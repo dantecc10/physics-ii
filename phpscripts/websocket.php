@@ -43,7 +43,19 @@ class MyWebSocket implements MessageComponentInterface
         $conn->close();
     }
 }
-$app = new Ratchet\App("192.168.0.9", 81, "0.0.0.0");
+
+// Configurable via environment variables or CLI argument.
+// Usage examples:
+//  - env: WS_HOST, WS_PORT, WS_BIND
+//    WS_HOST=realrecursantes.castelancarpinteyro.com WS_PORT=9000 php websocket.php
+//  - CLI arg: php websocket.php 9000
+$defaultDisplayHost = 'realrecursantes.castelancarpinteyro.com';
+$displayHost = getenv('WS_HOST') ?: $defaultDisplayHost;
+$port = getenv('WS_PORT') ?: (isset($argv[1]) ? intval($argv[1]) : 8080);
+$bind = getenv('WS_BIND') ?: '0.0.0.0';
+
+echo "Iniciando WebSocket en {$displayHost}:{$port} (bind {$bind})\n";
+$app = new Ratchet\App($displayHost, (int)$port, $bind);
 $app->route('/', new MyWebSocket(), array('*'));
 
 $app->run();
