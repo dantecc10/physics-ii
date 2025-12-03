@@ -3,11 +3,11 @@
 #include <DHT.h>
 
 // Credenciales de la red WiFi
-const char* ssid = "OPPO de Dante";
-const char* password = "NETSHWLANSHOWPROFILE";
+const char *ssid = "OPPO de Dante";
+const char *password = "NETSHWLANSHOWPROFILE";
 
 // URL del WebSocket
-const char* websocket_server = "wss://sgi.castelancarpinteyro.com";
+const char *websocket_server = "wss://realrecursantes.castelancarpinteyro.com";
 
 // Pin del sensor DHT11
 #define DHTPIN 4
@@ -16,10 +16,12 @@ const char* websocket_server = "wss://sgi.castelancarpinteyro.com";
 DHT dht(DHTPIN, DHTTYPE);
 WebSocketsClient webSocket;
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
@@ -31,11 +33,13 @@ void setup() {
   webSocket.onEvent(webSocketEvent);
 }
 
-void loop() {
+void loop()
+{
   webSocket.loop();
 
   float humidity = dht.readHumidity();
-  if (isnan(humidity)) {
+  if (isnan(humidity))
+  {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
@@ -46,16 +50,18 @@ void loop() {
   delay(5000); // Enviar cada 5 segundos
 }
 
-void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
-  switch(type) {
-    case WStype_DISCONNECTED:
-      Serial.println("WebSocket Disconnected!");
-      break;
-    case WStype_CONNECTED:
-      Serial.println("WebSocket Connected!");
-      break;
-    case WStype_TEXT:
-      Serial.printf("Received text: %s\n", payload);
-      break;
+void webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
+{
+  switch (type)
+  {
+  case WStype_DISCONNECTED:
+    Serial.println("WebSocket Disconnected!");
+    break;
+  case WStype_CONNECTED:
+    Serial.println("WebSocket Connected!");
+    break;
+  case WStype_TEXT:
+    Serial.printf("Received text: %s\n", payload);
+    break;
   }
 }
