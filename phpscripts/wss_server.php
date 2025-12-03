@@ -43,7 +43,8 @@ class Chat implements MessageComponentInterface {
 }
 
 $loop = \React\EventLoop\Factory::create();
-$webSock = new \React\Socket\Server('0.0.0.0:8080', $loop);
+//$webSock = new \React\Socket\Server('0.0.0.0:8080', $loop);
+$webSock = new \React\Socket\Server('0.0.0.0:9696', $loop);
 
 $webSock = new \React\Socket\SecureServer($webSock, $loop, [
     'local_cert' => __DIR__ . '/certificate.pem', // Ruta a tu archivo .pem
