@@ -18,6 +18,7 @@ class SensorServer implements MessageComponentInterface {
         echo "Servidor WebSocket iniciado\n";
     }
 
+    
     public function onOpen(ConnectionInterface $conn) {
         $this->clients->attach($conn);
         echo "Nueva conexión: ({$conn->resourceId})\n";
