@@ -1,0 +1,14 @@
+[Unit]
+Description=WebSocket Server para ESP32
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/vhosts/castelancarpinteyro.com/realrecursantes.castelancarpinteyro.com/web
+ExecStart=/usr/bin/php /var/www/vhosts/castelancarpinteyro.com/realrecursantes.castelancarpinteyro.com/web/server.php
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
